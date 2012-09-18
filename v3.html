@@ -1803,8 +1803,8 @@ code > span.er { color: #ff0000; font-weight: bold; }
       <span class="dt">&quot;suffix&quot;</span>: <span class="er">empty-single-line</span>
     }
   ],
-  <span class="er">length</span>: <span class="er">positive-integer?</span>,
-  <span class="er">isrcs</span>: [ <span class="er">isrc</span> ],
+  <span class="dt">&quot;length&quot;</span>: <span class="er">positive-integer?</span>,
+  <span class="dt">&quot;isrcs&quot;</span>: [ <span class="er">isrc</span> ],
 
   <span class="dt">&quot;annotation&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/recording/:mbid/annotation&quot;</span>,
   <span class="dt">&quot;relationships&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/recording/:mbid/relationships&quot;</span>,
@@ -3814,12 +3814,14 @@ code > span.er { color: #ff0000; font-weight: bold; }
 9
 10
 11
+12
 </pre></td><td class="sourceCode"><pre><code class="sourceCode json">{
   <span class="dt">&quot;id&quot;</span>: <span class="er">mbid</span>,
   <span class="dt">&quot;name&quot;</span>: <span class="er">single-line</span>,
   <span class="dt">&quot;comment&quot;</span>: <span class="er">empty-single-line</span>,
   <span class="dt">&quot;type&quot;</span>: <span class="er">single-line?</span>,
   <span class="dt">&quot;language&quot;</span>: <span class="er">ISO</span><span class="dv">-639</span><span class="er">?</span>,
+  <span class="dt">&quot;iswcs&quot;</span>: [ <span class="er">iswc</span> ],
 
   <span class="dt">&quot;annotation&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/work/:mbid/annotation&quot;</span>,
   <span class="dt">&quot;relationships&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/work/:mbid/relationships&quot;</span>,
