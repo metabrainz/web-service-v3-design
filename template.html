@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>$title$</title>
+    <style>
+      body {
+        background: #fefefe;
+        color: #333;
+        margin: 0;
+        font-family: Helvetia, sans-serif;
+        font-size: 14px;
+      }
+      #toc {
+        float: left;
+        border-right: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+        padding: 0.5em;
+        width: 30em;
+        background: #fcfcfc;
+        font-size: 11px;
+        position: fixed;
+        height: 98%;
+        overflow: auto;
+      }
+      #toc ul {
+        list-style-type: none;
+        margin: 0; padding: 0;
+      }
+      #toc ul li {
+        margin-left: 1em;
+      }
+      #contents {
+        padding: 0.2em;
+        margin-left: 26em;
+        max-width: 50em;
+      }
+      a {
+        text-decoration: none;
+      }
+      a, a:visited {
+        color: #2222ff;
+      }
+      td.lineNumbers {
+        color: #aaa;
+        width: 1em;
+        text-align: right;
+      }
+      table.sourceCode {
+        border: 1px solid #ddd;
+        width: 100%;
+        border-radius: 5px;
+        background: #eaeaea;
+      }
+    </style>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; background-color: #dddddd; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { font-weight: bold; }
+code > span.dt { color: #800000; }
+code > span.dv { color: #0000ff; }
+code > span.bn { color: #0000ff; }
+code > span.fl { color: #800080; }
+code > span.ch { color: #ff00ff; }
+code > span.st { color: #dd0000; }
+code > span.co { color: #808080; font-style: italic; }
+code > span.al { color: #00ff00; font-weight: bold; }
+code > span.fu { color: #000080; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+  </head>
+
+  <body>
+    <div id="toc">
+      $toc$
+    </div>
+    <div id="contents">
+$body$
+    </div>
+  </body>
+</html>

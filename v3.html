@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MusicBrainz Web Service, Version 3</title>
+    <style>
+      body {
+        background: #fefefe;
+        color: #333;
+        margin: 0;
+        font-family: Helvetia, sans-serif;
+        font-size: 14px;
+      }
+      #toc {
+        float: left;
+        border-right: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+        padding: 0.5em;
+        width: 30em;
+        background: #fcfcfc;
+        font-size: 11px;
+        position: fixed;
+        height: 98%;
+        overflow: auto;
+      }
+      #toc ul {
+        list-style-type: none;
+        margin: 0; padding: 0;
+      }
+      #toc ul li {
+        margin-left: 1em;
+      }
+      #contents {
+        padding: 0.2em;
+        margin-left: 26em;
+        max-width: 50em;
+      }
+      a {
+        text-decoration: none;
+      }
+      a, a:visited {
+        color: #2222ff;
+      }
+      td.lineNumbers {
+        color: #aaa;
+        width: 1em;
+        text-align: right;
+      }
+      table.sourceCode {
+        border: 1px solid #ddd;
+        width: 100%;
+        border-radius: 5px;
+        background: #eaeaea;
+      }
+    </style>
+  <style type="text/css">
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; background-color: #dddddd; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { font-weight: bold; }
+code > span.dt { color: #800000; }
+code > span.dv { color: #0000ff; }
+code > span.bn { color: #0000ff; }
+code > span.fl { color: #800080; }
+code > span.ch { color: #ff00ff; }
+code > span.st { color: #dd0000; }
+code > span.co { color: #808080; font-style: italic; }
+code > span.al { color: #00ff00; font-weight: bold; }
+code > span.fu { color: #000080; }
+code > span.er { color: #ff0000; font-weight: bold; }
+  </style>
+  </head>
+
+  <body>
+    <div id="toc">
+      <ul>
+      <li><a href="#musicbrainz-web-service-version-3">MusicBrainz Web Service, Version 3</a><ul>
+      <li><a href="#access">Access</a><ul>
+      <li><a href="#error-handling">Error handling</a></li>
+      <li><a href="#rate-limiting">Rate Limiting</a></li>
+      </ul></li>
+      <li><a href="#json-patterns">JSON Patterns</a></li>
+      <li><a href="#end-points">End Points</a><ul>
+      <li><a href="#artistmbid"><code>/artist/:mbid/</code></a><ul>
+      <li><a href="#get"><code>GET</code></a><ul>
+      <li><a href="#summary">Summary</a></li>
+      <li><a href="#minimal-complete-response">Minimal complete response</a></li>
+      <li><a href="#parameters">Parameters</a></li>
+      <li><a href="#response-codes">Response codes</a></li>
+      </ul></li>
+      </ul></li>
+      <li><a href="#artistmbidaliases"><code>/artist/:mbid/aliases/</code></a><ul>
+      <li><a href="#get-1"><code>GET</code></a><ul>
+      <li><a href="#summary-1">Summary</a></li>
+      <li><a href="#minimal-complete-response-1">Minimal complete response</a></li>
+      <li><a href="#parameters-1">Parameters</a></li>
+      <li><a href="#response-codes-1">Response codes</a></li>
+      </ul></li>
+      </ul></li>
+      <li><a href="#artistmbidannotation"><code>/artist/:mbid/annotation/</code></a><ul>
+      <li><a href="#get-2"><code>GET</code></a><ul>
+      <li><a href="#summary-2">Summary</a></li>
+      <li><a href="#minimal-complete-response-2">Minimal complete response</a></li>
+      <li><a href="#parameters-2">Parameters</a></li>
+      <li><a href="#response-codes-2">Response codes</a></li>
+      </ul></li>
+      </ul></li>
+      <li><a href="#artistmbidrelationships"><code>/artist/:mbid/relationships/</code></a><ul>
+      <li><a href="#get-3"><code>GET</code></a><ul>
+      <li><a href="#summary-3">Summary</a></li>
+      <li><a href="#minimal-complete-response-3">Minimal complete response</a></li>
+      <li><a href="#parameters-3">Parameters</a></li>
+      <li><a href="#response-codes-3">Response codes</a></li>
+      </ul></li>
+      </ul></li>
+      <li><a href="#artistmbidrelationshipsentity-type"><code>/artist/:mbid/relationships/:entity-type/</code></a><ul>
+      <li><a href="#get-4"><code>GET</code></a><ul>
+      <li><a href="#summary-4">Summary</a></li>
+      <li><a href="#minimal-complete-response-4">Minimal complete response</a></li>
+      <li><a href="#parameters-4">Parameters</a></li>
+      <li><a href="#response-codes-4">Response codes</a></li>
+      </ul></li>
+      </ul></li>
+      <li><a href="#artistmbidtags"><code>/artist/:mbid/tags/</code></a><ul>
+      <li><a href="#get-5"><code>GET</code></a><ul>
+      <li><a href="#summary-5">Summary</a></li>
+      <li><a href="#minimal-complete-response-5">Minimal complete response</a></li>
+      <li><a href="#parameters-5">Parameters</a></li>
+      <li><a href="#response-codes-5">Response codes</a></li>
+      </ul></li>
+      </ul></li>
+      <li><a href="#artists"><code>/artists/</code></a><ul>
+      <li><a href="#get-6"><code>GET</code></a><ul>
+      <li><a href="#summary-6">Summary</a></li>
+      <li><a href="#minimal-complete-response-6">Minimal complete response</a></li>
+      <li><a href="#parameters-6">Parameters</a></li>
+      <li><a href="#parameters-7">Parameters</a></li>
+      <li><a href="#response-codes-6">Response codes</a></li>
+      </ul></li>
+      </ul></li>
+      </ul></li>
+      <li><a href="#types">Types</a><ul>
+      <li><a href="#core-entity">Core Entity</a></li>
+      <li><a href="#paginated-lists">Paginated lists</a></li>
+      <li><a href="#date-range"><code>date-range</code></a></li>
+      <li><a href="#direction"><code>direction</code></a></li>
+      <li><a href="#entity-type"><code>entity-type</code></a></li>
+      <li><a href="#mbid"><code>MBID</code></a></li>
+      <li><a href="#nonnegative-integer"><code>nonnegative-integer</code></a></li>
+      <li><a href="#single-line"><code>single-line</code></a></li>
+      </ul></li>
+      </ul></li>
+      <li><a href="#open-questions">Open Questions</a><ul>
+      <li><a href="#http-or-https">HTTP or HTTPS?</a></li>
+      <li><a href="#linking-to-auxiliary-data">Linking to auxiliary data</a></li>
+      <li><a href="#pagination---page-based-or-reference-based">Pagination - page based or reference based?</a><ul>
+      <li><a href="#page-based">Page based</a></li>
+      <li><a href="#offset">Offset</a></li>
+      </ul></li>
+      <li><a href="#texthtml-for-annotations">text/html for annotations?</a></li>
+      <li><a href="#usage-of-link-header">Usage of Link header</a></li>
+      </ul></li>
+      </ul>
+    </div>
+    <div id="contents">
+<h1 id="musicbrainz-web-service-version-3"><a href="#TOC">MusicBrainz Web Service, Version 3</a></h1>
+<p>This document describes the programming interface provided by the third version of the MusicBrainz API. The guiding design principle of the API is <a href="https://en.wikipedia.org/wiki/Representational_state_transfer">REST</a>, so if you are familiar with this paradigm, then the web service should feel natural to you.</p>
+<h2 id="access"><a href="#TOC">Access</a></h2>
+<ul>
+<li>All access to the web service is conducted over HTTP 1.1.</li>
+<li>All calls are around a base URL of http://musicbrainz.org/ws/3/</li>
+<li>Access to the web service is rate limited. The details of how rate limiting works can be found in section on <a href="#rate-limiting">rate limiting</a>.</li>
+<li>All request and response bodies are encoded as UTF-8 JSON, to be served with the <code>application/json</code> mime-type.</li>
+<li>Data is heavily hyperlinked, allowing you to easily move between data.</li>
+</ul>
+<h3 id="error-handling"><a href="#TOC">Error handling</a></h3>
+<p>The majority of end points all share some common behaviour for error handling. The following status codes are used:</p>
+<table>
+<col width="6%" />
+<col width="93%" />
+<thead>
+<tr class="header">
+<th align="left">Code</th>
+<th align="left">Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">400</td>
+<td align="left">A parameter in the request URI could not be parsed, or the request body could not be parsed</td>
+</tr>
+<tr class="even">
+<td align="left">401</td>
+<td align="left">You attempted to request a resource either without authenticating, or are authenticated as a user without permission for this resource.</td>
+</tr>
+<tr class="odd">
+<td align="left">429</td>
+<td align="left">The client has sent too many requests, and has gone over their rate limit.</td>
+</tr>
+<tr class="even">
+<td align="left">500</td>
+<td align="left">Our servers could not process the request, but it was well-formed. If this error frequently occurs, please file a <a href="http://tickets.musicbrainz.org">bug</a> report.</td>
+</tr>
+<tr class="odd">
+<td align="left">503</td>
+<td align="left">Our servers are currently overloaded and unable to process the request. This is also sent if we couldn't process the request in a timely fashion. If this error frequently occurs, please file a <a href="http://tickets.musicbrainz.org">bug</a> report.</td>
+</tr>
+</tbody>
+</table>
+<p>In the case of these errors, the body of the response will also include a descriptive error message, served as <code>application/json</code>:</p>
+<table class="sourceCode json numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+</pre></td><td class="sourceCode"><pre><code class="sourceCode json">{
+    <span class="dt">&quot;error&quot;</span>: <span class="er">text</span>
+}</code></pre></td></tr></table>
+<h3 id="rate-limiting"><a href="#TOC">Rate Limiting</a></h3>
+<p>I still need to write this up. General idea:</p>
+<ul>
+<li>Adaptive rate limiter; rate limit changes after every request.</li>
+<li>Requests are cost based - the longer it takes to compute the data, the more it costs against the rate limiter.</li>
+<li>Receiving 304 and thus using cache control headers does not incur a cost at all.</li>
+<li>Rate limit daemon 'refills' rate limits depending on aggregate server load.</li>
+</ul>
+<h2 id="json-patterns"><a href="#TOC">JSON Patterns</a></h2>
+<p>We follow a couple of patterns with the JSON representation, throughout the web service:</p>
+<ul>
+<li>All end points document a minimum complete response that documents the full schema you can expect back. These example responses are minimal in that the lists will contain at most 1 element. The values of properties are the data type that this property can hold; see the section on <a href="#types">types</a> if you need more detail about a specific type. Properties marked with a <code>?</code> suffix may also take <code>null</code> as a value.</li>
+<li>Paginated lists are represented as a JSON object, with properties for the first page, next page, previous page, last page, the total item count, and the items themselves. For more details, see <a href="#paginated-lists">paginated lists</a> in the type reference.</li>
+</ul>
+<h2 id="end-points"><a href="#TOC">End Points</a></h2>
+<p>This section of documentation pertains to the public facing end points that developers can make requests against. Each end point documents:</p>
+<ul>
+<li>The HTTP methods that can be used to call it.</li>
+<li>A summary of what that method does against that end point.</li>
+</ul>
+<h3 id="artistmbid"><a href="#TOC"><code>/artist/:mbid/</code></a></h3>
+<h4 id="get"><a href="#TOC"><code>GET</code></a></h4>
+<h5 id="summary"><a href="#TOC">Summary</a></h5>
+<p>Fetch basic information about an artist, by their <a href="#mbid">MBID</a>.</p>
+<h5 id="minimal-complete-response"><a href="#TOC">Minimal complete response</a></h5>
+<table class="sourceCode json numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+</pre></td><td class="sourceCode"><pre><code class="sourceCode json">{
+  <span class="dt">&quot;id&quot;</span>: <span class="er">mbid</span>,
+  <span class="dt">&quot;name&quot;</span>: <span class="er">single-line</span>,
+  <span class="dt">&quot;sort-name&quot;</span>: <span class="er">single-line</span>,
+  <span class="dt">&quot;comment&quot;</span>: <span class="er">empty-single-line</span>,
+  <span class="dt">&quot;gender&quot;</span>: <span class="er">single-line?</span>,
+  <span class="dt">&quot;country&quot;</span>: <span class="er">ISO</span><span class="dv">-3166</span><span class="er">?</span>,
+  <span class="dt">&quot;type&quot;</span>: <span class="er">single-line?</span>,
+  <span class="dt">&quot;date-range&quot;</span>: <span class="er">date-range</span>,
+  <span class="dt">&quot;ipi-codes&quot;</span>: [ <span class="er">ipi-code</span> ],
+
+  <span class="dt">&quot;aliases&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/artist/:mbid/aliases&quot;</span>,
+  <span class="dt">&quot;annotation&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/artist/:mbid/annotation&quot;</span>,
+  <span class="dt">&quot;relationships&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/artist/:mbid/relationships&quot;</span>,
+  <span class="dt">&quot;tags&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/artist/:mbid/tags&quot;</span>,
+}</code></pre></td></tr></table>
+<h5 id="parameters"><a href="#TOC">Parameters</a></h5>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Parameter</th>
+<th align="left">Type</th>
+<th align="left">Optional</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>:mbid</code></td>
+<td align="left"><code>MBID</code></td>
+<td align="left">No</td>
+<td align="left">The MBID of the artist to look up.</td>
+</tr>
+</tbody>
+</table>
+<h5 id="response-codes"><a href="#TOC">Response codes</a></h5>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Code</th>
+<th align="left">Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">200</td>
+<td align="left">The artist could be fetched successfully.</td>
+</tr>
+<tr class="even">
+<td align="left">302</td>
+<td align="left">The MBID used has now been merged into another entity.</td>
+</tr>
+<tr class="odd">
+<td align="left">400</td>
+<td align="left">The MBID in the URL could not be parsed.</td>
+</tr>
+<tr class="even">
+<td align="left">404</td>
+<td align="left">No artist with this MBID could be found.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="artistmbidaliases"><a href="#TOC"><code>/artist/:mbid/aliases/</code></a></h3>
+<h4 id="get-1"><a href="#TOC"><code>GET</code></a></h4>
+<h5 id="summary-1"><a href="#TOC">Summary</a></h5>
+<p>Get a list of all aliases for an artist.</p>
+<h5 id="minimal-complete-response-1"><a href="#TOC">Minimal complete response</a></h5>
+<table class="sourceCode json numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+</pre></td><td class="sourceCode"><pre><code class="sourceCode json">{
+  <span class="dt">&quot;artist&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/artist/:mbid/&quot;</span>,
+  <span class="dt">&quot;aliases&quot;</span>: {
+    <span class="dt">&quot;first-page&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/artist/:mbid/aliases/?page=0&quot;</span>,
+    <span class="dt">&quot;last-page&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/artist/:mbid/aliases/?page=n&quot;</span>,
+    <span class="dt">&quot;next-page&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/artist/:mbid/aliases/?page=1&quot;</span>,
+    <span class="dt">&quot;previous-page&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/artist/:mbid/aliases/?page=0&quot;</span>,
+    <span class="dt">&quot;total&quot;</span>: <span class="er">nonnegative-integer</span>,
+    <span class="dt">&quot;items&quot;</span>: [
+      {
+        <span class="dt">&quot;name&quot;</span>: <span class="er">single-line</span>,
+        <span class="dt">&quot;sort-name&quot;</span>: <span class="er">single-line</span>,
+        <span class="dt">&quot;locale&quot;</span>: <span class="er">single-line</span>,
+        <span class="dt">&quot;type&quot;</span>: <span class="er">single-line</span>,
+        <span class="dt">&quot;date-range&quot;</span>: <span class="er">date-range</span>,
+        <span class="dt">&quot;primary-for-locale&quot;</span>: <span class="er">boolean</span>
+      }
+    ]
+  }
+}</code></pre></td></tr></table>
+<h5 id="parameters-1"><a href="#TOC">Parameters</a></h5>
+<table>
+<col width="13%" />
+<col width="30%" />
+<col width="12%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Parameter</th>
+<th align="left">Type</th>
+<th align="left">Optional</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>:mbid</code></td>
+<td align="left"><code>MBID</code></td>
+<td align="left">No</td>
+<td align="left">The MBID of the artist to fetch aliases for.</td>
+</tr>
+<tr class="even">
+<td align="left"><code>?page</code></td>
+<td align="left"><code>nonnegative-integer</code></td>
+<td align="left">Yes</td>
+<td align="left">The page offset for results. Defaults to 0 if omitted.</td>
+</tr>
+</tbody>
+</table>
+<h5 id="response-codes-1"><a href="#TOC">Response codes</a></h5>
+<table>
+<col width="6%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Code</th>
+<th align="left">Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">200</td>
+<td align="left">The artist aliases could be fetched successfully.</td>
+</tr>
+<tr class="even">
+<td align="left">302</td>
+<td align="left">The MBID used has now been merged into another entity.</td>
+</tr>
+<tr class="odd">
+<td align="left">400</td>
+<td align="left">The MBID in the URL could not be parsed.<br />The pagination parameters are not valid.</td>
+</tr>
+<tr class="even">
+<td align="left">404</td>
+<td align="left">No artist with this MBID could be found.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="artistmbidannotation"><a href="#TOC"><code>/artist/:mbid/annotation/</code></a></h3>
+<h4 id="get-2"><a href="#TOC"><code>GET</code></a></h4>
+<h5 id="summary-2"><a href="#TOC">Summary</a></h5>
+<p>Get the latest annotation for an artist.</p>
+<h5 id="minimal-complete-response-2"><a href="#TOC">Minimal complete response</a></h5>
+<table class="sourceCode json numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+</pre></td><td class="sourceCode"><pre><code class="sourceCode json">{
+  <span class="dt">&quot;artist&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/artist/:mbid/&quot;</span>,
+  <span class="dt">&quot;abstract&quot;</span>: <span class="er">text</span>,
+  <span class="dt">&quot;annotation&quot;</span>: <span class="er">text</span>
+}</code></pre></td></tr></table>
+<p>The abstract of an annotation is a snippet of text, usually the first paragraph.</p>
+<h5 id="parameters-2"><a href="#TOC">Parameters</a></h5>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Parameter</th>
+<th align="left">Type</th>
+<th align="left">Optional</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>:mbid</code></td>
+<td align="left"><code>MBID</code></td>
+<td align="left">No</td>
+<td align="left">The MBID of the artist to an annotation for.</td>
+</tr>
+</tbody>
+</table>
+<h5 id="response-codes-2"><a href="#TOC">Response codes</a></h5>
+<table>
+<col width="6%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Code</th>
+<th align="left">Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">200</td>
+<td align="left">The artist annotation could be fetched successfully.</td>
+</tr>
+<tr class="even">
+<td align="left">302</td>
+<td align="left">The MBID used has now been merged into another entity.</td>
+</tr>
+<tr class="odd">
+<td align="left">400</td>
+<td align="left">The MBID in the URL could not be parsed.<br />The pagination parameters are not valid.</td>
+</tr>
+<tr class="even">
+<td align="left">404</td>
+<td align="left">No artist with this MBID could be found.<br />This artist does not have an annotation.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="artistmbidrelationships"><a href="#TOC"><code>/artist/:mbid/relationships/</code></a></h3>
+<h4 id="get-3"><a href="#TOC"><code>GET</code></a></h4>
+<h5 id="summary-3"><a href="#TOC">Summary</a></h5>
+<p>Get a list of all relationships that point to this artist. There response of this request is partitioned by the type of the other end point, and there is a hard limit of 1 page of results in each list. However, each list includes hyperlinks to more pages of data.</p>
+<h5 id="minimal-complete-response-3"><a href="#TOC">Minimal complete response</a></h5>
+<table class="sourceCode json numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+</pre></td><td class="sourceCode"><pre><code class="sourceCode json">{
+  <span class="dt">&quot;artist&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/artist/:mbid/&quot;</span>,
+  <span class="dt">&quot;relationships&quot;</span>: {
+    <span class="dt">&quot;artist&quot;</span>: {
+      <span class="dt">&quot;first-page&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/artist/:mbid/relationships/artist/?page=0&quot;</span>,
+      <span class="dt">&quot;last-page&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/artist/:mbid/relationships/artist/?page=n&quot;</span>,
+      <span class="dt">&quot;next-page&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/artist/:mbid/relationships/artist/?page=1&quot;</span>,
+      <span class="dt">&quot;previous-page&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/artist/:mbid/relationships/artist/?page=0&quot;</span>,
+      <span class="dt">&quot;total&quot;</span>: <span class="er">nonnegative-integer</span>,
+      <span class="dt">&quot;items&quot;</span>: [
+        {
+          <span class="dt">&quot;relationship&quot;</span>: <span class="er">single-line</span>,
+          <span class="dt">&quot;date-range&quot;</span>: <span class="er">date-range</span>,
+          <span class="dt">&quot;attributes&quot;</span>: [ <span class="er">single-line</span> ],
+          <span class="dt">&quot;direction&quot;</span>: <span class="er">direction</span>
+          <span class="st">&quot;artist&quot;</span><span class="er">:</span> <span class="st">&quot;http://musicbrainz.org/ws/3/artist/:mbid/&quot;</span>,
+        }
+      ]
+    },
+    <span class="er">...</span>
+  }
+}</code></pre></td></tr></table>
+<h5 id="parameters-3"><a href="#TOC">Parameters</a></h5>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Parameter</th>
+<th align="left">Type</th>
+<th align="left">Optional</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>:mbid</code></td>
+<td align="left"><code>MBID</code></td>
+<td align="left">No</td>
+<td align="left">The MBID of the artist to find an annotation for.</td>
+</tr>
+</tbody>
+</table>
+<h5 id="response-codes-3"><a href="#TOC">Response codes</a></h5>
+<table>
+<col width="6%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Code</th>
+<th align="left">Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">200</td>
+<td align="left">The artist relationships could be fetched successfully.</td>
+</tr>
+<tr class="even">
+<td align="left">302</td>
+<td align="left">The MBID used has now been merged into another entity.</td>
+</tr>
+<tr class="odd">
+<td align="left">400</td>
+<td align="left">The MBID in the URL could not be parsed.</td>
+</tr>
+<tr class="even">
+<td align="left">404</td>
+<td align="left">No artist with this MBID could be found.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="artistmbidrelationshipsentity-type"><a href="#TOC"><code>/artist/:mbid/relationships/:entity-type/</code></a></h3>
+<h4 id="get-4"><a href="#TOC"><code>GET</code></a></h4>
+<h5 id="summary-4"><a href="#TOC">Summary</a></h5>
+<p>Get a list of all relationships that point to this artist, where the end point is of a specific type. This can be used to find only artist-work relationships, for example. This end point also supports paging.</p>
+<p>The response format is mostly the same as <code>/artist/:mbid/relationships/</code>, however it the <code>relationships</code> property will only contain a single key, which varies depending on the <code>:entity-type</code> parameter.</p>
+<h5 id="minimal-complete-response-4"><a href="#TOC">Minimal complete response</a></h5>
+<table class="sourceCode json numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+</pre></td><td class="sourceCode"><pre><code class="sourceCode json">{
+  <span class="dt">&quot;artist&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/artist/:mbid/&quot;</span>,
+  <span class="dt">&quot;relationships&quot;</span>: {
+    <span class="er">entity-type</span>: {
+      <span class="dt">&quot;first-page&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/artist/:mbid/relationships/:entity-type/?page=0&quot;</span>,
+      <span class="dt">&quot;last-page&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/artist/:mbid/relationships/:entity-type/?page=n&quot;</span>,
+      <span class="dt">&quot;next-page&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/artist/:mbid/relationships/:entity-type/?page=1&quot;</span>,
+      <span class="dt">&quot;previous-page&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/artist/:mbid/relationships/:entity-type/?page=0&quot;</span>,
+      <span class="dt">&quot;total&quot;</span>: <span class="er">nonnegative-integer</span>,
+      <span class="dt">&quot;items&quot;</span>: [
+        {
+          <span class="dt">&quot;relationship&quot;</span>: <span class="er">single-line</span>,
+          <span class="dt">&quot;date-range&quot;</span>: <span class="er">date-range</span>,
+          <span class="dt">&quot;attributes&quot;</span>: [ <span class="er">single-line</span> ],
+          <span class="dt">&quot;direction&quot;</span>: <span class="er">direction</span>
+          <span class="st">&quot;artist&quot;</span><span class="er">:</span> <span class="st">&quot;http://musicbrainz.org/ws/3/artist/:mbid/&quot;</span>,
+        }
+      ]
+    },
+    <span class="er">...</span>
+  }
+}</code></pre></td></tr></table>
+<h5 id="parameters-4"><a href="#TOC">Parameters</a></h5>
+<table>
+<col width="20%" />
+<col width="30%" />
+<col width="12%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Parameter</th>
+<th align="left">Type</th>
+<th align="left">Optional</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>:mbid</code></td>
+<td align="left"><code>MBID</code></td>
+<td align="left">No</td>
+<td align="left">The MBID of the artist to find relationships for.</td>
+</tr>
+<tr class="even">
+<td align="left"><code>:entity-type</code></td>
+<td align="left"><code>entity-type</code></td>
+<td align="left">No</td>
+<td align="left">The type of relationships, by end point type, to list.</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>?page</code></td>
+<td align="left"><code>nonnegative-integer</code></td>
+<td align="left">Yes</td>
+<td align="left">The page offset for results. Defaults to 0 if omitted.</td>
+</tr>
+</tbody>
+</table>
+<h5 id="response-codes-4"><a href="#TOC">Response codes</a></h5>
+<table>
+<col width="6%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Code</th>
+<th align="left">Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">200</td>
+<td align="left">The artist relationships could be fetched successfully.</td>
+</tr>
+<tr class="even">
+<td align="left">302</td>
+<td align="left">The MBID used has now been merged into another entity.</td>
+</tr>
+<tr class="odd">
+<td align="left">400</td>
+<td align="left">The MBID in the URL could not be parsed.<br />The <code>:entity-type</code> parameter could not be parsed.<br />The pagination parameters are not valid.</td>
+</tr>
+<tr class="even">
+<td align="left">404</td>
+<td align="left">No artist with this MBID could be found.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="artistmbidtags"><a href="#TOC"><code>/artist/:mbid/tags/</code></a></h3>
+<h4 id="get-5"><a href="#TOC"><code>GET</code></a></h4>
+<h5 id="summary-5"><a href="#TOC">Summary</a></h5>
+<p>Get a list of all tags for an artist.</p>
+<h5 id="minimal-complete-response-5"><a href="#TOC">Minimal complete response</a></h5>
+<table class="sourceCode json numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+</pre></td><td class="sourceCode"><pre><code class="sourceCode json">{
+  <span class="dt">&quot;artist&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/artist/:mbid/&quot;</span>,
+  <span class="dt">&quot;tags&quot;</span>: {
+    <span class="dt">&quot;first-page&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/artist/:mbid/tags/?page=0&quot;</span>,
+    <span class="dt">&quot;last-page&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/artist/:mbid/tags/?page=n&quot;</span>,
+    <span class="dt">&quot;next-page&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/artist/:mbid/tags/?page=1&quot;</span>,
+    <span class="dt">&quot;previous-page&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/artist/:mbid/tags/?page=0&quot;</span>,
+    <span class="dt">&quot;total&quot;</span>: <span class="er">nonnegative-integer</span>,
+    <span class="dt">&quot;items&quot;</span>: [
+      {
+        <span class="dt">&quot;tag&quot;</span>: <span class="er">single-line</span>,
+        <span class="dt">&quot;count&quot;</span>: <span class="er">nonnegative-integer</span>
+      }
+    ]
+  }
+}</code></pre></td></tr></table>
+<h5 id="parameters-5"><a href="#TOC">Parameters</a></h5>
+<table>
+<col width="20%" />
+<col width="30%" />
+<col width="12%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Parameter</th>
+<th align="left">Type</th>
+<th align="left">Optional</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>:mbid</code></td>
+<td align="left"><code>MBID</code></td>
+<td align="left">No</td>
+<td align="left">The MBID of the artist to find tags for.</td>
+</tr>
+<tr class="even">
+<td align="left"><code>?page</code></td>
+<td align="left"><code>nonnegative-integer</code></td>
+<td align="left">Yes</td>
+<td align="left">The page offset for results. Defaults to 0 if omitted.</td>
+</tr>
+</tbody>
+</table>
+<h5 id="response-codes-5"><a href="#TOC">Response codes</a></h5>
+<table>
+<col width="6%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Code</th>
+<th align="left">Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">200</td>
+<td align="left">The artist tags could be fetched successfully.</td>
+</tr>
+<tr class="even">
+<td align="left">302</td>
+<td align="left">The MBID used has now been merged into another entity.</td>
+</tr>
+<tr class="odd">
+<td align="left">400</td>
+<td align="left">The MBID in the URL could not be parsed.<br />The pagination parameters are not valid.</td>
+</tr>
+<tr class="even">
+<td align="left">404</td>
+<td align="left">No artist with this MBID could be found.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="artists"><a href="#TOC"><code>/artists/</code></a></h3>
+<h4 id="get-6"><a href="#TOC"><code>GET</code></a></h4>
+<h5 id="summary-6"><a href="#TOC">Summary</a></h5>
+<p>Search for artists based on various query parameters.</p>
+<h5 id="minimal-complete-response-6"><a href="#TOC">Minimal complete response</a></h5>
+<h5 id="parameters-6"><a href="#TOC">Parameters</a></h5>
+<h5 id="parameters-7"><a href="#TOC">Parameters</a></h5>
+<table>
+<col width="20%" />
+<col width="30%" />
+<col width="12%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Parameter</th>
+<th align="left">Type</th>
+<th align="left">Optional</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>query</code></td>
+<td align="left"><code>text</code></td>
+<td align="left">No</td>
+<td align="left">A query to search all artists for. For query syntax, see the documentation on <a href="http://musicbrainz.org/doc/Indexed_Search_Syntax">indexed search syntax</a>.</td>
+</tr>
+<tr class="even">
+<td align="left"><code>?page</code></td>
+<td align="left"><code>nonnegative-integer</code></td>
+<td align="left">Yes</td>
+<td align="left">The page offset for results. Defaults to 0 if omitted.</td>
+</tr>
+</tbody>
+</table>
+<h5 id="response-codes-6"><a href="#TOC">Response codes</a></h5>
+<table>
+<col width="6%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Code</th>
+<th align="left">Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">200</td>
+<td align="left">The artist search could be performed successfully.</td>
+</tr>
+<tr class="even">
+<td align="left">400</td>
+<td align="left">The search query was invalid.<br />The pagination parameters are not valid.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="types"><a href="#TOC">Types</a></h2>
+<p>This appendix contains a list of types used by the web service. All types have a description, and where possible, their augmented Backus-Naur form syntax (as defined by <a href="https://tools.ietf.org/html/rfc5234">RFC 5234</a>).</p>
+<h3 id="core-entity"><a href="#TOC">Core Entity</a></h3>
+<p>A core entity in MusicBrainz is an entity that has (at least):</p>
+<ul>
+<li>One or more <a href="#mbid">MBID</a>s.</li>
+<li>The ability to be edited by editors.</li>
+</ul>
+<p>There are currently 7 core entities in MusicBrainz:</p>
+<ul>
+<li>Artists</li>
+<li>Labels</li>
+<li>Recordings</li>
+<li>Releases</li>
+<li>Release groups</li>
+<li>URLs</li>
+<li>Works</li>
+</ul>
+<h3 id="paginated-lists"><a href="#TOC">Paginated lists</a></h3>
+<h3 id="date-range"><a href="#TOC"><code>date-range</code></a></h3>
+<p>A date range in MusicBrainz has 3 components: a start date, an end date, and a boolean asserting whether or not this date range has ended. The boolean is necessary because there are various entities in MusicBrainz where either the start or end (or both) dates are not known, but it <em>is</em> known that the entity is no longer active.</p>
+<p>A <code>date-range</code> is a JSON object:</p>
+<table class="sourceCode json numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+</pre></td><td class="sourceCode"><pre><code class="sourceCode json"><span class="er">&quot;date-range&quot;:</span> {
+  <span class="dt">&quot;start&quot;</span>: <span class="er">partial-date?</span>,
+  <span class="dt">&quot;end&quot;</span>: <span class="er">partial-date?</span>,
+  <span class="dt">&quot;ended&quot;</span>: <span class="er">boolean</span>
+}</code></pre></td></tr></table>
+<p>Where</p>
+<pre><code>partial_date = (4DIGIT / &quot;&quot;) &quot;-&quot; (2DIGIT / &quot;&quot;) &quot;-&quot; (2DIGIT / &quot;&quot;)</code></pre>
+<p>It's important to note that partial dates are just that, <em>partial</em>. You may encounter dates that have only a year, or dates that consist of a year and a day.</p>
+<h3 id="direction"><a href="#TOC"><code>direction</code></a></h3>
+<p>Indicates whether a relationship is forwards - pointing <em>towards</em> another entity - or backwards - pointing <em>from</em> another entity.</p>
+<pre><code>direction = &quot;forward&quot; / &quot;backward&quot;</code></pre>
+<h3 id="entity-type"><a href="#TOC"><code>entity-type</code></a></h3>
+<p>Used to specify which type of <a href="#core-entity">core entity</a> one is referring to.</p>
+<pre><code>entity-type = &quot;artist&quot; / &quot;label&quot; /&quot; recording&quot; / &quot;release&quot; / &quot;release-group&quot; /
+              &quot;url&quot; / &quot;work&quot;</code></pre>
+<h3 id="mbid"><a href="#TOC"><code>MBID</code></a></h3>
+<p>A MusicBrainz identifier that can be used for looking up various <a href="#core-entity">core entities</a>.</p>
+<pre><code>mbid = 8HEXDIG &quot;-&quot; 4HEXDIG &quot;-&quot; 4HEXDIG &quot;-&quot; 4HEXDIG &quot;-&quot; &quot;-&quot; 12HEXDIG
+</code></pre>
+<h3 id="nonnegative-integer"><a href="#TOC"><code>nonnegative-integer</code></a></h3>
+<p>An integer that is either 0 or positive.</p>
+<h3 id="single-line"><a href="#TOC"><code>single-line</code></a></h3>
+<p>A text string that does not have leading or trailing whitespace, runs of multiple whitespace characters, or newlines.</p>
+<h1 id="open-questions"><a href="#TOC">Open Questions</a></h1>
+<h2 id="http-or-https"><a href="#TOC">HTTP or HTTPS?</a></h2>
+<p>Github mandate that all requests are served over HTTPS. Should we? By doing so we're consistent, and also ensuring clients can handle HTTPS for authentication.</p>
+<h2 id="linking-to-auxiliary-data"><a href="#TOC">Linking to auxiliary data</a></h2>
+<p>In various responses, we provide hyperlinks to auxiliary data. For example, the artist that a set of artist aliases belong to, or the label that an artist-label relationship points to. The question is:</p>
+<ol style="list-style-type: decimal">
+<li>Do we retain these hyperlinks?</li>
+<li>Or do we expand these hyperlinks into full objects?</li>
+</ol>
+<p>I personally am in favour of 1 (hence writing it so!), and my rationale is as follows. With aggressive cache control headers, fetching this data can effectively be reduced to a no-op once the client has requested this data once. As per <a href="#rate-limiting">rate limiting</a>, requesting something that hits the cache does not cost against the rate limiter. Thus this data is usable by clients at almost no cost, and the data only has to be transmitted once, rather than multiple times.</p>
+<h2 id="pagination---page-based-or-reference-based"><a href="#TOC">Pagination - page based or reference based?</a></h2>
+<p>There are 2 ways to handle pagination, with different advantages and disadvantages. The most common way is to use a limit/offset (or page). The other method is to keep track of the last item on a page and pass that reference itself to find the next page.</p>
+<h3 id="page-based"><a href="#TOC">Page based</a></h3>
+<ul>
+<li>Fairly common.</li>
+<li>Allows jumping to the last page.</li>
+<li>O(1) queries to find the <code>nth</code> item.</li>
+<li>Requires the whole query executed either in full (without limits) or twice, in order to obtain the count.</li>
+<li>Can be influenced between requests by data changing.</li>
+</ul>
+<h3 id="offset"><a href="#TOC">Offset</a></h3>
+<ul>
+<li>O(n) queries to look up the <code>nth</code> item.</li>
+<li>Can take advantage of limit/offset, though still needs another query to get the total count.</li>
+<li>Not as susceptible to data changing - the offset is still valid.</li>
+</ul>
+<h2 id="texthtml-for-annotations"><a href="#TOC">text/html for annotations?</a></h2>
+<p>The annotation end point could also be extended to Accept: text/html, in order to produce rendered annotations. This might be useful to some people, but specifically useful to the web-site if we want to start dog fooding our own web service.</p>
+<h2 id="usage-of-link-header"><a href="#TOC">Usage of Link header</a></h2>
+<p><a href="https://tools.ietf.org/html/rfc5988">RFC-5988</a> re-defines the Link header, providing a structured language for linking to other resources. In the responses above, I specifically embed the URI to sub-resources, and next/previous page. Perhaps this data would be more useful in the Link header?</p>
+    </div>
+  </body>
+</html>
