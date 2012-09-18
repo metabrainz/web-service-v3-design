@@ -387,6 +387,63 @@ code > span.er { color: #ff0000; font-weight: bold; }
       <li><a href="#response-codes-36">Response codes</a></li>
       </ul></li>
       </ul></li>
+      <li><a href="#workmbid"><code>/work/:mbid/</code></a><ul>
+      <li><a href="#get-37"><code>GET</code></a><ul>
+      <li><a href="#summary-37">Summary</a></li>
+      <li><a href="#minimal-complete-response-37">Minimal complete response</a></li>
+      <li><a href="#parameters-43">Parameters</a></li>
+      <li><a href="#response-codes-37">Response codes</a></li>
+      </ul></li>
+      </ul></li>
+      <li><a href="#workmbidaliases"><code>/work/:mbid/aliases/</code></a><ul>
+      <li><a href="#get-38"><code>GET</code></a><ul>
+      <li><a href="#summary-38">Summary</a></li>
+      <li><a href="#minimal-complete-response-38">Minimal complete response</a></li>
+      <li><a href="#parameters-44">Parameters</a></li>
+      <li><a href="#response-codes-38">Response codes</a></li>
+      </ul></li>
+      </ul></li>
+      <li><a href="#workmbidannotation"><code>/work/:mbid/annotation/</code></a><ul>
+      <li><a href="#get-39"><code>GET</code></a><ul>
+      <li><a href="#summary-39">Summary</a></li>
+      <li><a href="#minimal-complete-response-39">Minimal complete response</a></li>
+      <li><a href="#parameters-45">Parameters</a></li>
+      <li><a href="#response-codes-39">Response codes</a></li>
+      </ul></li>
+      </ul></li>
+      <li><a href="#workmbidrelationships"><code>/work/:mbid/relationships/</code></a><ul>
+      <li><a href="#get-40"><code>GET</code></a><ul>
+      <li><a href="#summary-40">Summary</a></li>
+      <li><a href="#minimal-complete-response-40">Minimal complete response</a></li>
+      <li><a href="#parameters-46">Parameters</a></li>
+      <li><a href="#response-codes-40">Response codes</a></li>
+      </ul></li>
+      </ul></li>
+      <li><a href="#workmbidrelationshipsentity-type"><code>/work/:mbid/relationships/:entity-type/</code></a><ul>
+      <li><a href="#get-41"><code>GET</code></a><ul>
+      <li><a href="#summary-41">Summary</a></li>
+      <li><a href="#minimal-complete-response-41">Minimal complete response</a></li>
+      <li><a href="#parameters-47">Parameters</a></li>
+      <li><a href="#response-codes-41">Response codes</a></li>
+      </ul></li>
+      </ul></li>
+      <li><a href="#workmbidtags"><code>/work/:mbid/tags/</code></a><ul>
+      <li><a href="#get-42"><code>GET</code></a><ul>
+      <li><a href="#summary-42">Summary</a></li>
+      <li><a href="#minimal-complete-response-42">Minimal complete response</a></li>
+      <li><a href="#parameters-48">Parameters</a></li>
+      <li><a href="#response-codes-42">Response codes</a></li>
+      </ul></li>
+      </ul></li>
+      <li><a href="#works"><code>/works/</code></a><ul>
+      <li><a href="#get-43"><code>GET</code></a><ul>
+      <li><a href="#summary-43">Summary</a></li>
+      <li><a href="#minimal-complete-response-43">Minimal complete response</a></li>
+      <li><a href="#parameters-49">Parameters</a></li>
+      <li><a href="#parameters-50">Parameters</a></li>
+      <li><a href="#response-codes-43">Response codes</a></li>
+      </ul></li>
+      </ul></li>
       </ul></li>
       <li><a href="#types">Types</a><ul>
       <li><a href="#core-entity">Core Entity</a></li>
@@ -3745,6 +3802,615 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <tr class="odd">
 <td align="left">200</td>
 <td align="left">The url search could be performed successfully.</td>
+</tr>
+<tr class="even">
+<td align="left">400</td>
+<td align="left">The search query was invalid.<br />The pagination parameters are not valid.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="workmbid"><a href="#TOC"><code>/work/:mbid/</code></a></h3>
+<h4 id="get-37"><a href="#TOC"><code>GET</code></a></h4>
+<h5 id="summary-37"><a href="#TOC">Summary</a></h5>
+<p>Fetch information about a work, by its <a href="#mbid">MBID</a>.</p>
+<h5 id="minimal-complete-response-37"><a href="#TOC">Minimal complete response</a></h5>
+<table class="sourceCode json numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="sourceCode"><pre><code class="sourceCode json">{
+  <span class="dt">&quot;id&quot;</span>: <span class="er">mbid</span>,
+  <span class="dt">&quot;name&quot;</span>: <span class="er">single-line</span>,
+  <span class="dt">&quot;comment&quot;</span>: <span class="er">empty-single-line</span>,
+  <span class="dt">&quot;type&quot;</span>: <span class="er">single-line?</span>,
+  <span class="dt">&quot;language&quot;</span>: <span class="er">ISO</span><span class="dv">-639</span><span class="er">?</span>,
+
+  <span class="dt">&quot;annotation&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/work/:mbid/annotation&quot;</span>,
+  <span class="dt">&quot;relationships&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/work/:mbid/relationships&quot;</span>,
+  <span class="dt">&quot;tags&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/work/:mbid/tags&quot;</span>,
+}</code></pre></td></tr></table>
+<h5 id="parameters-43"><a href="#TOC">Parameters</a></h5>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Parameter</th>
+<th align="left">Type</th>
+<th align="left">Optional</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>:mbid</code></td>
+<td align="left"><code>MBID</code></td>
+<td align="left">No</td>
+<td align="left">The MBID of the work to look up.</td>
+</tr>
+</tbody>
+</table>
+<h5 id="response-codes-37"><a href="#TOC">Response codes</a></h5>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Code</th>
+<th align="left">Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">200</td>
+<td align="left">The work could be fetched successfully.</td>
+</tr>
+<tr class="even">
+<td align="left">302</td>
+<td align="left">The MBID used has now been merged into another entity.</td>
+</tr>
+<tr class="odd">
+<td align="left">400</td>
+<td align="left">The MBID in the URL could not be parsed.</td>
+</tr>
+<tr class="even">
+<td align="left">404</td>
+<td align="left">No work with this MBID could be found.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="workmbidaliases"><a href="#TOC"><code>/work/:mbid/aliases/</code></a></h3>
+<h4 id="get-38"><a href="#TOC"><code>GET</code></a></h4>
+<h5 id="summary-38"><a href="#TOC">Summary</a></h5>
+<p>Get a list of all aliases for a work.</p>
+<h5 id="minimal-complete-response-38"><a href="#TOC">Minimal complete response</a></h5>
+<table class="sourceCode json numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+</pre></td><td class="sourceCode"><pre><code class="sourceCode json">{
+  <span class="dt">&quot;work&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/work/:mbid/&quot;</span>,
+  <span class="dt">&quot;aliases&quot;</span>: {
+    <span class="dt">&quot;first-page&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/work/:mbid/aliases/?page=0&quot;</span>,
+    <span class="dt">&quot;last-page&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/work/:mbid/aliases/?page=n&quot;</span>,
+    <span class="dt">&quot;next-page&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/work/:mbid/aliases/?page=1&quot;</span>,
+    <span class="dt">&quot;previous-page&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/work/:mbid/aliases/?page=0&quot;</span>,
+    <span class="dt">&quot;total&quot;</span>: <span class="er">nonnegative-integer</span>,
+    <span class="dt">&quot;items&quot;</span>: [
+      {
+        <span class="dt">&quot;name&quot;</span>: <span class="er">single-line</span>,
+        <span class="dt">&quot;sort-name&quot;</span>: <span class="er">single-line</span>,
+        <span class="dt">&quot;locale&quot;</span>: <span class="er">single-line?</span>,
+        <span class="dt">&quot;type&quot;</span>: <span class="er">single-line?</span>,
+        <span class="dt">&quot;date-range&quot;</span>: <span class="er">date-range</span>,
+        <span class="dt">&quot;primary-for-locale&quot;</span>: <span class="er">boolean</span>
+      }
+    ]
+  }
+}</code></pre></td></tr></table>
+<h5 id="parameters-44"><a href="#TOC">Parameters</a></h5>
+<table>
+<col width="13%" />
+<col width="30%" />
+<col width="12%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Parameter</th>
+<th align="left">Type</th>
+<th align="left">Optional</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>:mbid</code></td>
+<td align="left"><code>MBID</code></td>
+<td align="left">No</td>
+<td align="left">The MBID of the work to fetch aliases for.</td>
+</tr>
+<tr class="even">
+<td align="left"><code>?page</code></td>
+<td align="left"><code>nonnegative-integer</code></td>
+<td align="left">Yes</td>
+<td align="left">The page offset for results. Defaults to 0 if omitted.</td>
+</tr>
+</tbody>
+</table>
+<h5 id="response-codes-38"><a href="#TOC">Response codes</a></h5>
+<table>
+<col width="6%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Code</th>
+<th align="left">Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">200</td>
+<td align="left">The work aliases could be fetched successfully.</td>
+</tr>
+<tr class="even">
+<td align="left">302</td>
+<td align="left">The MBID used has now been merged into another entity.</td>
+</tr>
+<tr class="odd">
+<td align="left">400</td>
+<td align="left">The MBID in the URL could not be parsed.<br />The pagination parameters are not valid.</td>
+</tr>
+<tr class="even">
+<td align="left">404</td>
+<td align="left">No work with this MBID could be found.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="workmbidannotation"><a href="#TOC"><code>/work/:mbid/annotation/</code></a></h3>
+<h4 id="get-39"><a href="#TOC"><code>GET</code></a></h4>
+<h5 id="summary-39"><a href="#TOC">Summary</a></h5>
+<p>Get the latest annotation for a work.</p>
+<h5 id="minimal-complete-response-39"><a href="#TOC">Minimal complete response</a></h5>
+<table class="sourceCode json numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+</pre></td><td class="sourceCode"><pre><code class="sourceCode json">{
+  <span class="dt">&quot;work&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/work/:mbid/&quot;</span>,
+  <span class="dt">&quot;abstract&quot;</span>: <span class="er">text</span>,
+  <span class="dt">&quot;annotation&quot;</span>: <span class="er">text</span>
+}</code></pre></td></tr></table>
+<p>The abstract of an annotation is a snippet of text, usually the first paragraph.</p>
+<h5 id="parameters-45"><a href="#TOC">Parameters</a></h5>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Parameter</th>
+<th align="left">Type</th>
+<th align="left">Optional</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>:mbid</code></td>
+<td align="left"><code>MBID</code></td>
+<td align="left">No</td>
+<td align="left">The MBID of the work to find an annotation for.</td>
+</tr>
+</tbody>
+</table>
+<h5 id="response-codes-39"><a href="#TOC">Response codes</a></h5>
+<table>
+<col width="6%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Code</th>
+<th align="left">Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">200</td>
+<td align="left">The work annotation could be fetched successfully.</td>
+</tr>
+<tr class="even">
+<td align="left">302</td>
+<td align="left">The MBID used has now been merged into another entity.</td>
+</tr>
+<tr class="odd">
+<td align="left">400</td>
+<td align="left">The MBID in the URL could not be parsed.<br />The pagination parameters are not valid.</td>
+</tr>
+<tr class="even">
+<td align="left">404</td>
+<td align="left">No work with this MBID could be found.<br />This work does not have an annotation.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="workmbidrelationships"><a href="#TOC"><code>/work/:mbid/relationships/</code></a></h3>
+<h4 id="get-40"><a href="#TOC"><code>GET</code></a></h4>
+<h5 id="summary-40"><a href="#TOC">Summary</a></h5>
+<p>Get a list of all relationships that point to this work. The response of this request is partitioned by the type of the other end point, and there is a hard limit of 1 page of results in each list. However, each list includes hyperlinks to more pages of data.</p>
+<h5 id="minimal-complete-response-40"><a href="#TOC">Minimal complete response</a></h5>
+<table class="sourceCode json numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+</pre></td><td class="sourceCode"><pre><code class="sourceCode json">{
+  <span class="dt">&quot;work&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/work/:mbid/&quot;</span>,
+  <span class="dt">&quot;relationships&quot;</span>: {
+    <span class="dt">&quot;artist&quot;</span>: {
+      <span class="dt">&quot;first-page&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/work/:mbid/relationships/artist/?page=0&quot;</span>,
+      <span class="dt">&quot;last-page&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/work/:mbid/relationships/artist/?page=n&quot;</span>,
+      <span class="dt">&quot;next-page&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/work/:mbid/relationships/artist/?page=1&quot;</span>,
+      <span class="dt">&quot;previous-page&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/work/:mbid/relationships/artist/?page=0&quot;</span>,
+      <span class="dt">&quot;total&quot;</span>: <span class="er">nonnegative-integer</span>,
+      <span class="dt">&quot;items&quot;</span>: [
+        {
+          <span class="dt">&quot;relationship&quot;</span>: <span class="er">single-line</span>,
+          <span class="dt">&quot;date-range&quot;</span>: <span class="er">date-range</span>,
+          <span class="dt">&quot;attributes&quot;</span>: [ <span class="er">single-line</span> ],
+          <span class="dt">&quot;direction&quot;</span>: <span class="er">direction</span>
+          <span class="st">&quot;artist&quot;</span><span class="er">:</span> <span class="st">&quot;http://musicbrainz.org/ws/3/artist/:mbid/&quot;</span>,
+        }
+      ]
+    },
+    <span class="er">...</span>
+  }
+}</code></pre></td></tr></table>
+<h5 id="parameters-46"><a href="#TOC">Parameters</a></h5>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Parameter</th>
+<th align="left">Type</th>
+<th align="left">Optional</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>:mbid</code></td>
+<td align="left"><code>MBID</code></td>
+<td align="left">No</td>
+<td align="left">The MBID of the work to find relationships for.</td>
+</tr>
+</tbody>
+</table>
+<h5 id="response-codes-40"><a href="#TOC">Response codes</a></h5>
+<table>
+<col width="6%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Code</th>
+<th align="left">Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">200</td>
+<td align="left">The work relationships could be fetched successfully.</td>
+</tr>
+<tr class="even">
+<td align="left">302</td>
+<td align="left">The MBID used has now been merged into another entity.</td>
+</tr>
+<tr class="odd">
+<td align="left">400</td>
+<td align="left">The MBID in the URL could not be parsed.</td>
+</tr>
+<tr class="even">
+<td align="left">404</td>
+<td align="left">No work with this MBID could be found.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="workmbidrelationshipsentity-type"><a href="#TOC"><code>/work/:mbid/relationships/:entity-type/</code></a></h3>
+<h4 id="get-41"><a href="#TOC"><code>GET</code></a></h4>
+<h5 id="summary-41"><a href="#TOC">Summary</a></h5>
+<p>Get a list of all relationships that point to this work, where the end point is of a specific type. This can be used to find only work-work relationships, for example. This end point also supports paging.</p>
+<p>The response format is mostly the same as <code>/work/:mbid/relationships/</code>, however it the <code>relationships</code> property will only contain a single key, which varies depending on the <code>:entity-type</code> parameter.</p>
+<h5 id="minimal-complete-response-41"><a href="#TOC">Minimal complete response</a></h5>
+<table class="sourceCode json numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+</pre></td><td class="sourceCode"><pre><code class="sourceCode json">{
+  <span class="dt">&quot;work&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/work/:mbid/&quot;</span>,
+  <span class="dt">&quot;relationships&quot;</span>: {
+    <span class="er">entity-type</span>: {
+      <span class="dt">&quot;first-page&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/work/:mbid/relationships/:entity-type/?page=0&quot;</span>,
+      <span class="dt">&quot;last-page&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/work/:mbid/relationships/:entity-type/?page=n&quot;</span>,
+      <span class="dt">&quot;next-page&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/work/:mbid/relationships/:entity-type/?page=1&quot;</span>,
+      <span class="dt">&quot;previous-page&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/work/:mbid/relationships/:entity-type/?page=0&quot;</span>,
+      <span class="dt">&quot;total&quot;</span>: <span class="er">nonnegative-integer</span>,
+      <span class="dt">&quot;items&quot;</span>: [
+        {
+          <span class="dt">&quot;relationship&quot;</span>: <span class="er">single-line</span>,
+          <span class="dt">&quot;date-range&quot;</span>: <span class="er">date-range</span>,
+          <span class="dt">&quot;attributes&quot;</span>: [ <span class="er">single-line</span> ],
+          <span class="dt">&quot;direction&quot;</span>: <span class="er">direction</span>
+          <span class="st">&quot;artist&quot;</span><span class="er">:</span> <span class="st">&quot;http://musicbrainz.org/ws/3/artist/:mbid/&quot;</span>,
+        }
+      ]
+    },
+    <span class="er">...</span>
+  }
+}</code></pre></td></tr></table>
+<h5 id="parameters-47"><a href="#TOC">Parameters</a></h5>
+<table>
+<col width="20%" />
+<col width="30%" />
+<col width="12%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Parameter</th>
+<th align="left">Type</th>
+<th align="left">Optional</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>:mbid</code></td>
+<td align="left"><code>MBID</code></td>
+<td align="left">No</td>
+<td align="left">The MBID of the work to find relationships for.</td>
+</tr>
+<tr class="even">
+<td align="left"><code>:entity-type</code></td>
+<td align="left"><code>entity-type</code></td>
+<td align="left">No</td>
+<td align="left">The type of relationships, by end point type, to list.</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>?page</code></td>
+<td align="left"><code>nonnegative-integer</code></td>
+<td align="left">Yes</td>
+<td align="left">The page offset for results. Defaults to 0 if omitted.</td>
+</tr>
+</tbody>
+</table>
+<h5 id="response-codes-41"><a href="#TOC">Response codes</a></h5>
+<table>
+<col width="6%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Code</th>
+<th align="left">Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">200</td>
+<td align="left">The work relationships could be fetched successfully.</td>
+</tr>
+<tr class="even">
+<td align="left">302</td>
+<td align="left">The MBID used has now been merged into another entity.</td>
+</tr>
+<tr class="odd">
+<td align="left">400</td>
+<td align="left">The MBID in the URL could not be parsed.<br />The <code>:entity-type</code> parameter could not be parsed.<br />The pagination parameters are not valid.</td>
+</tr>
+<tr class="even">
+<td align="left">404</td>
+<td align="left">No work with this MBID could be found.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="workmbidtags"><a href="#TOC"><code>/work/:mbid/tags/</code></a></h3>
+<h4 id="get-42"><a href="#TOC"><code>GET</code></a></h4>
+<h5 id="summary-42"><a href="#TOC">Summary</a></h5>
+<p>Get a list of all tags for a work.</p>
+<h5 id="minimal-complete-response-42"><a href="#TOC">Minimal complete response</a></h5>
+<table class="sourceCode json numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+</pre></td><td class="sourceCode"><pre><code class="sourceCode json">{
+  <span class="dt">&quot;work&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/work/:mbid/&quot;</span>,
+  <span class="dt">&quot;tags&quot;</span>: {
+    <span class="dt">&quot;first-page&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/work/:mbid/tags/?page=0&quot;</span>,
+    <span class="dt">&quot;last-page&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/work/:mbid/tags/?page=n&quot;</span>,
+    <span class="dt">&quot;next-page&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/work/:mbid/tags/?page=1&quot;</span>,
+    <span class="dt">&quot;previous-page&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/work/:mbid/tags/?page=0&quot;</span>,
+    <span class="dt">&quot;total&quot;</span>: <span class="er">nonnegative-integer</span>,
+    <span class="dt">&quot;items&quot;</span>: [
+      {
+        <span class="dt">&quot;tag&quot;</span>: <span class="er">single-line</span>,
+        <span class="dt">&quot;count&quot;</span>: <span class="er">nonnegative-integer</span>
+      }
+    ]
+  }
+}</code></pre></td></tr></table>
+<h5 id="parameters-48"><a href="#TOC">Parameters</a></h5>
+<table>
+<col width="20%" />
+<col width="30%" />
+<col width="12%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Parameter</th>
+<th align="left">Type</th>
+<th align="left">Optional</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>:mbid</code></td>
+<td align="left"><code>MBID</code></td>
+<td align="left">No</td>
+<td align="left">The MBID of the work to find tags for.</td>
+</tr>
+<tr class="even">
+<td align="left"><code>?page</code></td>
+<td align="left"><code>nonnegative-integer</code></td>
+<td align="left">Yes</td>
+<td align="left">The page offset for results. Defaults to 0 if omitted.</td>
+</tr>
+</tbody>
+</table>
+<h5 id="response-codes-42"><a href="#TOC">Response codes</a></h5>
+<table>
+<col width="6%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Code</th>
+<th align="left">Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">200</td>
+<td align="left">The work tags could be fetched successfully.</td>
+</tr>
+<tr class="even">
+<td align="left">302</td>
+<td align="left">The MBID used has now been merged into another entity.</td>
+</tr>
+<tr class="odd">
+<td align="left">400</td>
+<td align="left">The MBID in the URL could not be parsed.<br />The pagination parameters are not valid.</td>
+</tr>
+<tr class="even">
+<td align="left">404</td>
+<td align="left">No work with this MBID could be found.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="works"><a href="#TOC"><code>/works/</code></a></h3>
+<h4 id="get-43"><a href="#TOC"><code>GET</code></a></h4>
+<h5 id="summary-43"><a href="#TOC">Summary</a></h5>
+<p>Search for works based on various query parameters.</p>
+<h5 id="minimal-complete-response-43"><a href="#TOC">Minimal complete response</a></h5>
+<h5 id="parameters-49"><a href="#TOC">Parameters</a></h5>
+<h5 id="parameters-50"><a href="#TOC">Parameters</a></h5>
+<table>
+<col width="20%" />
+<col width="30%" />
+<col width="12%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Parameter</th>
+<th align="left">Type</th>
+<th align="left">Optional</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>query</code></td>
+<td align="left"><code>text</code></td>
+<td align="left">No</td>
+<td align="left">A query to search all works for. For query syntax, see the documentation on <a href="http://musicbrainz.org/doc/Indexed_Search_Syntax">indexed search syntax</a>.</td>
+</tr>
+<tr class="even">
+<td align="left"><code>?page</code></td>
+<td align="left"><code>nonnegative-integer</code></td>
+<td align="left">Yes</td>
+<td align="left">The page offset for results. Defaults to 0 if omitted.</td>
+</tr>
+</tbody>
+</table>
+<h5 id="response-codes-43"><a href="#TOC">Response codes</a></h5>
+<table>
+<col width="6%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Code</th>
+<th align="left">Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">200</td>
+<td align="left">The work search could be performed successfully.</td>
 </tr>
 <tr class="even">
 <td align="left">400</td>
