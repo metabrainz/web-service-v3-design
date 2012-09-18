@@ -457,18 +457,6 @@ code > span.er { color: #ff0000; font-weight: bold; }
       <li><a href="#single-line"><code>single-line</code></a></li>
       </ul></li>
       </ul></li>
-      <li><a href="#open-questions">Open Questions</a><ul>
-      <li><a href="#http-or-https">HTTP or HTTPS?</a></li>
-      <li><a href="#linking-to-auxiliary-data">Linking to auxiliary data</a></li>
-      <li><a href="#pagination---page-based-or-reference-based">Pagination - page based or reference based?</a><ul>
-      <li><a href="#page-based">Page based</a></li>
-      <li><a href="#offset">Offset</a></li>
-      </ul></li>
-      <li><a href="#texthtml-for-annotations">text/html for annotations?</a></li>
-      <li><a href="#usage-of-link-header">Usage of Link header</a></li>
-      <li><a href="#puid-end-point">PUID end point?</a></li>
-      <li><a href="#releaserelease-groupmbid-or-release-groupmbidreleases">/release?release-group=mbid or /release-group/:mbid/releases ?</a></li>
-      </ul></li>
       </ul>
     </div>
     <div id="contents">
@@ -4471,41 +4459,6 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p>An integer that is either 0 or positive.</p>
 <h3 id="single-line"><a href="#TOC"><code>single-line</code></a></h3>
 <p>A text string that does not have leading or trailing whitespace, runs of multiple whitespace characters, or newlines. This <em>cannot</em> be the empty string.</p>
-<h1 id="open-questions"><a href="#TOC">Open Questions</a></h1>
-<h2 id="http-or-https"><a href="#TOC">HTTP or HTTPS?</a></h2>
-<p>Github mandate that all requests are served over HTTPS. Should we? By doing so we're consistent, and also ensuring clients can handle HTTPS for authentication.</p>
-<h2 id="linking-to-auxiliary-data"><a href="#TOC">Linking to auxiliary data</a></h2>
-<p>In various responses, we provide hyperlinks to auxiliary data. For example, the artist that a set of artist aliases belong to, or the label that an artist-label relationship points to. The question is:</p>
-<ol style="list-style-type: decimal">
-<li>Do we retain these hyperlinks?</li>
-<li>Or do we expand these hyperlinks into full objects?</li>
-</ol>
-<p>I personally am in favour of 1 (hence writing it so!), and my rationale is as follows. With aggressive cache control headers, fetching this data can effectively be reduced to a no-op once the client has requested this data once. As per <a href="#rate-limiting">rate limiting</a>, requesting something that hits the cache does not cost against the rate limiter. Thus this data is usable by clients at almost no cost, and the data only has to be transmitted once, rather than multiple times.</p>
-<h2 id="pagination---page-based-or-reference-based"><a href="#TOC">Pagination - page based or reference based?</a></h2>
-<p>There are 2 ways to handle pagination, with different advantages and disadvantages. The most common way is to use a limit/offset (or page). The other method is to keep track of the last item on a page and pass that reference itself to find the next page.</p>
-<h3 id="page-based"><a href="#TOC">Page based</a></h3>
-<ul>
-<li>Fairly common.</li>
-<li>Allows jumping to the last page.</li>
-<li>O(1) queries to find the <code>nth</code> item.</li>
-<li>Requires the whole query executed either in full (without limits) or twice, in order to obtain the count.</li>
-<li>Can be influenced between requests by data changing.</li>
-</ul>
-<h3 id="offset"><a href="#TOC">Offset</a></h3>
-<ul>
-<li>O(n) queries to look up the <code>nth</code> item.</li>
-<li>Can take advantage of limit/offset, though still needs another query to get the total count.</li>
-<li>Not as susceptible to data changing - the offset is still valid.</li>
-</ul>
-<h2 id="texthtml-for-annotations"><a href="#TOC">text/html for annotations?</a></h2>
-<p>The annotation end point could also be extended to Accept: text/html, in order to produce rendered annotations. This might be useful to some people, but specifically useful to the web-site if we want to start dog fooding our own web service.</p>
-<h2 id="usage-of-link-header"><a href="#TOC">Usage of Link header</a></h2>
-<p><a href="https://tools.ietf.org/html/rfc5988">RFC-5988</a> re-defines the Link header, providing a structured language for linking to other resources. In the responses above, I specifically embed the URI to sub-resources, and next/previous page. Perhaps this data would be more useful in the Link header?</p>
-<h2 id="puid-end-point"><a href="#TOC">PUID end point?</a></h2>
-<p>Should we have a PUID end point? If so, we should probably change <code>recording/:mbid/puid</code> to point to it.</p>
-<h2 id="releaserelease-groupmbid-or-release-groupmbidreleases"><a href="#TOC">/release?release-group=mbid or /release-group/:mbid/releases ?</a></h2>
-<p>I'm not sure about this one, and it comes up in a few other places. I personally think that the former (<code>/release/?release-group=:mbid</code>) is the better as it reduces the amount of URLs we have, which may simplify things for both the API implementer, and clients themselves.</p>
-<p>This issue also relates to whether <code>/artist/:mbid/releases</code>, <code>/artist/:mbid/recordings</code>, etc, should exist.</p>
     </div>
   </body>
 </html>
