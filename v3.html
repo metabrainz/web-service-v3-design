@@ -21,6 +21,7 @@
         position: fixed;
         height: 98%;
         overflow: auto;
+        white-space: nowrap;
       }
       #toc ul {
         list-style-type: none;
@@ -304,12 +305,62 @@ code > span.er { color: #ff0000; font-weight: bold; }
       <li><a href="#response-codes-26">Response codes</a></li>
       </ul></li>
       </ul></li>
+      <li><a href="#release-groupmbid"><code>/release-group/:mbid/</code></a><ul>
+      <li><a href="#get-27"><code>GET</code></a><ul>
+      <li><a href="#summary-27">Summary</a></li>
+      <li><a href="#minimal-complete-response-27">Minimal complete response</a></li>
+      <li><a href="#parameters-31">Parameters</a></li>
+      <li><a href="#response-codes-27">Response codes</a></li>
+      </ul></li>
+      </ul></li>
+      <li><a href="#release-groupmbidannotation"><code>/release-group/:mbid/annotation/</code></a><ul>
+      <li><a href="#get-28"><code>GET</code></a><ul>
+      <li><a href="#summary-28">Summary</a></li>
+      <li><a href="#minimal-complete-response-28">Minimal complete response</a></li>
+      <li><a href="#parameters-32">Parameters</a></li>
+      <li><a href="#response-codes-28">Response codes</a></li>
+      </ul></li>
+      </ul></li>
+      <li><a href="#release-groupmbidrelationships"><code>/release-group/:mbid/relationships/</code></a><ul>
+      <li><a href="#get-29"><code>GET</code></a><ul>
+      <li><a href="#summary-29">Summary</a></li>
+      <li><a href="#minimal-complete-response-29">Minimal complete response</a></li>
+      <li><a href="#parameters-33">Parameters</a></li>
+      <li><a href="#response-codes-29">Response codes</a></li>
+      </ul></li>
+      </ul></li>
+      <li><a href="#release-groupmbidrelationshipsentity-type"><code>/release-group/:mbid/relationships/:entity-type/</code></a><ul>
+      <li><a href="#get-30"><code>GET</code></a><ul>
+      <li><a href="#summary-30">Summary</a></li>
+      <li><a href="#minimal-complete-response-30">Minimal complete response</a></li>
+      <li><a href="#parameters-34">Parameters</a></li>
+      <li><a href="#response-codes-30">Response codes</a></li>
+      </ul></li>
+      </ul></li>
+      <li><a href="#release-groupmbidtags"><code>/release-group/:mbid/tags/</code></a><ul>
+      <li><a href="#get-31"><code>GET</code></a><ul>
+      <li><a href="#summary-31">Summary</a></li>
+      <li><a href="#minimal-complete-response-31">Minimal complete response</a></li>
+      <li><a href="#parameters-35">Parameters</a></li>
+      <li><a href="#response-codes-31">Response codes</a></li>
+      </ul></li>
+      </ul></li>
+      <li><a href="#release-groups"><code>/release-groups/</code></a><ul>
+      <li><a href="#get-32"><code>GET</code></a><ul>
+      <li><a href="#summary-32">Summary</a></li>
+      <li><a href="#minimal-complete-response-32">Minimal complete response</a></li>
+      <li><a href="#parameters-36">Parameters</a></li>
+      <li><a href="#parameters-37">Parameters</a></li>
+      <li><a href="#response-codes-32">Response codes</a></li>
+      </ul></li>
+      </ul></li>
       </ul></li>
       <li><a href="#types">Types</a><ul>
       <li><a href="#core-entity">Core Entity</a></li>
       <li><a href="#paginated-lists">Paginated lists</a></li>
       <li><a href="#date-range"><code>date-range</code></a></li>
       <li><a href="#direction"><code>direction</code></a></li>
+      <li><a href="#empty-single-line"><code>empty-single-line</code></a></li>
       <li><a href="#entity-type"><code>entity-type</code></a></li>
       <li><a href="#mbid"><code>MBID</code></a></li>
       <li><a href="#nonnegative-integer"><code>nonnegative-integer</code></a></li>
@@ -326,6 +377,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
       <li><a href="#texthtml-for-annotations">text/html for annotations?</a></li>
       <li><a href="#usage-of-link-header">Usage of Link header</a></li>
       <li><a href="#puid-end-point">PUID end point?</a></li>
+      <li><a href="#releaserelease-groupmbid-or-release-groupmbidreleases">/release?release-group=mbid or /release-group/:mbid/releases ?</a></li>
       </ul></li>
       </ul>
     </div>
@@ -404,7 +456,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h3 id="artistmbid"><a href="#TOC"><code>/artist/:mbid/</code></a></h3>
 <h4 id="get"><a href="#TOC"><code>GET</code></a></h4>
 <h5 id="summary"><a href="#TOC">Summary</a></h5>
-<p>Fetch basic information about an artist, by their <a href="#mbid">MBID</a>.</p>
+<p>Fetch information about an artist, by their <a href="#mbid">MBID</a>.</p>
 <h5 id="minimal-complete-response"><a href="#TOC">Minimal complete response</a></h5>
 <table class="sourceCode json numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
 2
@@ -1023,7 +1075,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h3 id="labelmbid"><a href="#TOC"><code>/label/:mbid/</code></a></h3>
 <h4 id="get-7"><a href="#TOC"><code>GET</code></a></h4>
 <h5 id="summary-7"><a href="#TOC">Summary</a></h5>
-<p>Fetch basic information about a label, by their <a href="#mbid">MBID</a>.</p>
+<p>Fetch information about a label, by their <a href="#mbid">MBID</a>.</p>
 <h5 id="minimal-complete-response-7"><a href="#TOC">Minimal complete response</a></h5>
 <table class="sourceCode json numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
 2
@@ -1642,7 +1694,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h3 id="recordingmbid"><a href="#TOC"><code>/recording/:mbid/</code></a></h3>
 <h4 id="get-14"><a href="#TOC"><code>GET</code></a></h4>
 <h5 id="summary-14"><a href="#TOC">Summary</a></h5>
-<p>Fetch basic information about a recording, by its <a href="#mbid">MBID</a>.</p>
+<p>Fetch information about a recording, by its <a href="#mbid">MBID</a>.</p>
 <h5 id="minimal-complete-response-14"><a href="#TOC">Minimal complete response</a></h5>
 <table class="sourceCode json numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
 2
@@ -2237,7 +2289,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h3 id="releasembid"><a href="#TOC"><code>/release/:mbid/</code></a></h3>
 <h4 id="get-21"><a href="#TOC"><code>GET</code></a></h4>
 <h5 id="summary-21"><a href="#TOC">Summary</a></h5>
-<p>Fetch basic information about a release, by its <a href="#mbid">MBID</a>.</p>
+<p>Fetch information about a release, by its <a href="#mbid">MBID</a>.</p>
 <h5 id="minimal-complete-response-21"><a href="#TOC">Minimal complete response</a></h5>
 <table class="sourceCode json numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
 2
@@ -2817,6 +2869,525 @@ code > span.er { color: #ff0000; font-weight: bold; }
 </tbody>
 </table>
 <hr />
+<h3 id="release-groupmbid"><a href="#TOC"><code>/release-group/:mbid/</code></a></h3>
+<h4 id="get-27"><a href="#TOC"><code>GET</code></a></h4>
+<h5 id="summary-27"><a href="#TOC">Summary</a></h5>
+<p>Fetch information about a release group, by its <a href="#mbid">MBID</a>.</p>
+<h5 id="minimal-complete-response-27"><a href="#TOC">Minimal complete response</a></h5>
+<table class="sourceCode json numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+</pre></td><td class="sourceCode"><pre><code class="sourceCode json">{
+  <span class="dt">&quot;id&quot;</span>: <span class="er">mbid</span>,
+  <span class="dt">&quot;name&quot;</span>: <span class="er">single-line</span>,
+  <span class="dt">&quot;comment&quot;</span>: <span class="er">empty-single-line</span>,
+  <span class="dt">&quot;artist-credits&quot;</span>: [
+    {
+      <span class="dt">&quot;artist&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/artist/:mbid/&quot;</span>,
+      <span class="dt">&quot;name&quot;</span>: <span class="er">single-line</span>,
+      <span class="dt">&quot;suffix&quot;</span>: <span class="er">empty-single-line</span>
+    }
+  ],
+  <span class="dt">&quot;primary-type&quot;</span>: <span class="er">single-line?</span>,
+  <span class="dt">&quot;secondary-types&quot;</span>: [ <span class="er">single-line</span> ],
+
+  <span class="dt">&quot;annotation&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/release-group/:mbid/annotation&quot;</span>,
+  <span class="dt">&quot;relationships&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/release-group/:mbid/relationships&quot;</span>,
+  <span class="dt">&quot;tags&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/release-group/:mbid/tags&quot;</span>,
+}</code></pre></td></tr></table>
+<h5 id="parameters-31"><a href="#TOC">Parameters</a></h5>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Parameter</th>
+<th align="left">Type</th>
+<th align="left">Optional</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>:mbid</code></td>
+<td align="left"><code>MBID</code></td>
+<td align="left">No</td>
+<td align="left">The MBID of the release group to look up.</td>
+</tr>
+</tbody>
+</table>
+<h5 id="response-codes-27"><a href="#TOC">Response codes</a></h5>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Code</th>
+<th align="left">Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">200</td>
+<td align="left">The release group could be fetched successfully.</td>
+</tr>
+<tr class="even">
+<td align="left">302</td>
+<td align="left">The MBID used has now been merged into another entity.</td>
+</tr>
+<tr class="odd">
+<td align="left">400</td>
+<td align="left">The MBID in the URL could not be parsed.</td>
+</tr>
+<tr class="even">
+<td align="left">404</td>
+<td align="left">No release group with this MBID could be found.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="release-groupmbidannotation"><a href="#TOC"><code>/release-group/:mbid/annotation/</code></a></h3>
+<h4 id="get-28"><a href="#TOC"><code>GET</code></a></h4>
+<h5 id="summary-28"><a href="#TOC">Summary</a></h5>
+<p>Get the latest annotation for a release group.</p>
+<h5 id="minimal-complete-response-28"><a href="#TOC">Minimal complete response</a></h5>
+<table class="sourceCode json numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+</pre></td><td class="sourceCode"><pre><code class="sourceCode json">{
+  <span class="dt">&quot;release-group&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/release-group/:mbid/&quot;</span>,
+  <span class="dt">&quot;abstract&quot;</span>: <span class="er">text</span>,
+  <span class="dt">&quot;annotation&quot;</span>: <span class="er">text</span>
+}</code></pre></td></tr></table>
+<p>The abstract of an annotation is a snippet of text, usually the first paragraph.</p>
+<h5 id="parameters-32"><a href="#TOC">Parameters</a></h5>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Parameter</th>
+<th align="left">Type</th>
+<th align="left">Optional</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>:mbid</code></td>
+<td align="left"><code>MBID</code></td>
+<td align="left">No</td>
+<td align="left">The MBID of the release group to find an annotation for.</td>
+</tr>
+</tbody>
+</table>
+<h5 id="response-codes-28"><a href="#TOC">Response codes</a></h5>
+<table>
+<col width="6%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Code</th>
+<th align="left">Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">200</td>
+<td align="left">The release group annotation could be fetched successfully.</td>
+</tr>
+<tr class="even">
+<td align="left">302</td>
+<td align="left">The MBID used has now been merged into another entity.</td>
+</tr>
+<tr class="odd">
+<td align="left">400</td>
+<td align="left">The MBID in the URL could not be parsed.<br />The pagination parameters are not valid.</td>
+</tr>
+<tr class="even">
+<td align="left">404</td>
+<td align="left">No release group with this MBID could be found.<br />This release group does not have an annotation.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="release-groupmbidrelationships"><a href="#TOC"><code>/release-group/:mbid/relationships/</code></a></h3>
+<h4 id="get-29"><a href="#TOC"><code>GET</code></a></h4>
+<h5 id="summary-29"><a href="#TOC">Summary</a></h5>
+<p>Get a list of all relationships that point to this release group. The response of this request is partitioned by the type of the other end point, and there is a hard limit of 1 page of results in each list. However, each list includes hyperlinks to more pages of data.</p>
+<h5 id="minimal-complete-response-29"><a href="#TOC">Minimal complete response</a></h5>
+<table class="sourceCode json numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+</pre></td><td class="sourceCode"><pre><code class="sourceCode json">{
+  <span class="dt">&quot;release-group&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/release-group/:mbid/&quot;</span>,
+  <span class="dt">&quot;relationships&quot;</span>: {
+    <span class="dt">&quot;artist&quot;</span>: {
+      <span class="dt">&quot;first-page&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/release-group/:mbid/relationships/artist/?page=0&quot;</span>,
+      <span class="dt">&quot;last-page&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/release-group/:mbid/relationships/artist/?page=n&quot;</span>,
+      <span class="dt">&quot;next-page&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/release-group/:mbid/relationships/artist/?page=1&quot;</span>,
+      <span class="dt">&quot;previous-page&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/release-group/:mbid/relationships/artist/?page=0&quot;</span>,
+      <span class="dt">&quot;total&quot;</span>: <span class="er">nonnegative-integer</span>,
+      <span class="dt">&quot;items&quot;</span>: [
+        {
+          <span class="dt">&quot;relationship&quot;</span>: <span class="er">single-line</span>,
+          <span class="dt">&quot;date-range&quot;</span>: <span class="er">date-range</span>,
+          <span class="dt">&quot;attributes&quot;</span>: [ <span class="er">single-line</span> ],
+          <span class="dt">&quot;direction&quot;</span>: <span class="er">direction</span>
+          <span class="st">&quot;artist&quot;</span><span class="er">:</span> <span class="st">&quot;http://musicbrainz.org/ws/3/artist/:mbid/&quot;</span>,
+        }
+      ]
+    },
+    <span class="er">...</span>
+  }
+}</code></pre></td></tr></table>
+<h5 id="parameters-33"><a href="#TOC">Parameters</a></h5>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Parameter</th>
+<th align="left">Type</th>
+<th align="left">Optional</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>:mbid</code></td>
+<td align="left"><code>MBID</code></td>
+<td align="left">No</td>
+<td align="left">The MBID of the release group to find relationships for.</td>
+</tr>
+</tbody>
+</table>
+<h5 id="response-codes-29"><a href="#TOC">Response codes</a></h5>
+<table>
+<col width="6%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Code</th>
+<th align="left">Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">200</td>
+<td align="left">The release group relationships could be fetched successfully.</td>
+</tr>
+<tr class="even">
+<td align="left">302</td>
+<td align="left">The MBID used has now been merged into another entity.</td>
+</tr>
+<tr class="odd">
+<td align="left">400</td>
+<td align="left">The MBID in the URL could not be parsed.</td>
+</tr>
+<tr class="even">
+<td align="left">404</td>
+<td align="left">No release group with this MBID could be found.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="release-groupmbidrelationshipsentity-type"><a href="#TOC"><code>/release-group/:mbid/relationships/:entity-type/</code></a></h3>
+<h4 id="get-30"><a href="#TOC"><code>GET</code></a></h4>
+<h5 id="summary-30"><a href="#TOC">Summary</a></h5>
+<p>Get a list of all relationships that point to this release group, where the end point is of a specific type. This can be used to find only release-group-work relationships, for example. This end point also supports paging.</p>
+<p>The response format is mostly the same as <code>/release-group/:mbid/relationships/</code>, however it the <code>relationships</code> property will only contain a single key, which varies depending on the <code>:entity-type</code> parameter.</p>
+<h5 id="minimal-complete-response-30"><a href="#TOC">Minimal complete response</a></h5>
+<table class="sourceCode json numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+</pre></td><td class="sourceCode"><pre><code class="sourceCode json">{
+  <span class="dt">&quot;release-group&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/release-group/:mbid/&quot;</span>,
+  <span class="dt">&quot;relationships&quot;</span>: {
+    <span class="er">entity-type</span>: {
+      <span class="dt">&quot;first-page&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/release-group/:mbid/relationships/:entity-type/?page=0&quot;</span>,
+      <span class="dt">&quot;last-page&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/release-group/:mbid/relationships/:entity-type/?page=n&quot;</span>,
+      <span class="dt">&quot;next-page&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/release-group/:mbid/relationships/:entity-type/?page=1&quot;</span>,
+      <span class="dt">&quot;previous-page&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/release-group/:mbid/relationships/:entity-type/?page=0&quot;</span>,
+      <span class="dt">&quot;total&quot;</span>: <span class="er">nonnegative-integer</span>,
+      <span class="dt">&quot;items&quot;</span>: [
+        {
+          <span class="dt">&quot;relationship&quot;</span>: <span class="er">single-line</span>,
+          <span class="dt">&quot;date-range&quot;</span>: <span class="er">date-range</span>,
+          <span class="dt">&quot;attributes&quot;</span>: [ <span class="er">single-line</span> ],
+          <span class="dt">&quot;direction&quot;</span>: <span class="er">direction</span>
+          <span class="st">&quot;artist&quot;</span><span class="er">:</span> <span class="st">&quot;http://musicbrainz.org/ws/3/artist/:mbid/&quot;</span>,
+        }
+      ]
+    },
+    <span class="er">...</span>
+  }
+}</code></pre></td></tr></table>
+<h5 id="parameters-34"><a href="#TOC">Parameters</a></h5>
+<table>
+<col width="20%" />
+<col width="30%" />
+<col width="12%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Parameter</th>
+<th align="left">Type</th>
+<th align="left">Optional</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>:mbid</code></td>
+<td align="left"><code>MBID</code></td>
+<td align="left">No</td>
+<td align="left">The MBID of the release group to find relationships for.</td>
+</tr>
+<tr class="even">
+<td align="left"><code>:entity-type</code></td>
+<td align="left"><code>entity-type</code></td>
+<td align="left">No</td>
+<td align="left">The type of relationships, by end point type, to list.</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>?page</code></td>
+<td align="left"><code>nonnegative-integer</code></td>
+<td align="left">Yes</td>
+<td align="left">The page offset for results. Defaults to 0 if omitted.</td>
+</tr>
+</tbody>
+</table>
+<h5 id="response-codes-30"><a href="#TOC">Response codes</a></h5>
+<table>
+<col width="6%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Code</th>
+<th align="left">Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">200</td>
+<td align="left">The release group relationships could be fetched successfully.</td>
+</tr>
+<tr class="even">
+<td align="left">302</td>
+<td align="left">The MBID used has now been merged into another entity.</td>
+</tr>
+<tr class="odd">
+<td align="left">400</td>
+<td align="left">The MBID in the URL could not be parsed.<br />The <code>:entity-type</code> parameter could not be parsed.<br />The pagination parameters are not valid.</td>
+</tr>
+<tr class="even">
+<td align="left">404</td>
+<td align="left">No release group with this MBID could be found.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="release-groupmbidtags"><a href="#TOC"><code>/release-group/:mbid/tags/</code></a></h3>
+<h4 id="get-31"><a href="#TOC"><code>GET</code></a></h4>
+<h5 id="summary-31"><a href="#TOC">Summary</a></h5>
+<p>Get a list of all tags for a release group.</p>
+<h5 id="minimal-complete-response-31"><a href="#TOC">Minimal complete response</a></h5>
+<table class="sourceCode json numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+</pre></td><td class="sourceCode"><pre><code class="sourceCode json">{
+  <span class="dt">&quot;release-group&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/release-group/:mbid/&quot;</span>,
+  <span class="dt">&quot;tags&quot;</span>: {
+    <span class="dt">&quot;first-page&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/release-group/:mbid/tags/?page=0&quot;</span>,
+    <span class="dt">&quot;last-page&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/release-group/:mbid/tags/?page=n&quot;</span>,
+    <span class="dt">&quot;next-page&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/release-group/:mbid/tags/?page=1&quot;</span>,
+    <span class="dt">&quot;previous-page&quot;</span>: <span class="st">&quot;http://musicbrainz.org/ws/3/release-group/:mbid/tags/?page=0&quot;</span>,
+    <span class="dt">&quot;total&quot;</span>: <span class="er">nonnegative-integer</span>,
+    <span class="dt">&quot;items&quot;</span>: [
+      {
+        <span class="dt">&quot;tag&quot;</span>: <span class="er">single-line</span>,
+        <span class="dt">&quot;count&quot;</span>: <span class="er">nonnegative-integer</span>
+      }
+    ]
+  }
+}</code></pre></td></tr></table>
+<h5 id="parameters-35"><a href="#TOC">Parameters</a></h5>
+<table>
+<col width="20%" />
+<col width="30%" />
+<col width="12%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Parameter</th>
+<th align="left">Type</th>
+<th align="left">Optional</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>:mbid</code></td>
+<td align="left"><code>MBID</code></td>
+<td align="left">No</td>
+<td align="left">The MBID of the release group to find tags for.</td>
+</tr>
+<tr class="even">
+<td align="left"><code>?page</code></td>
+<td align="left"><code>nonnegative-integer</code></td>
+<td align="left">Yes</td>
+<td align="left">The page offset for results. Defaults to 0 if omitted.</td>
+</tr>
+</tbody>
+</table>
+<h5 id="response-codes-31"><a href="#TOC">Response codes</a></h5>
+<table>
+<col width="6%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Code</th>
+<th align="left">Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">200</td>
+<td align="left">The release group tags could be fetched successfully.</td>
+</tr>
+<tr class="even">
+<td align="left">302</td>
+<td align="left">The MBID used has now been merged into another entity.</td>
+</tr>
+<tr class="odd">
+<td align="left">400</td>
+<td align="left">The MBID in the URL could not be parsed.<br />The pagination parameters are not valid.</td>
+</tr>
+<tr class="even">
+<td align="left">404</td>
+<td align="left">No release group with this MBID could be found.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="release-groups"><a href="#TOC"><code>/release-groups/</code></a></h3>
+<h4 id="get-32"><a href="#TOC"><code>GET</code></a></h4>
+<h5 id="summary-32"><a href="#TOC">Summary</a></h5>
+<p>Search for release groups based on various query parameters.</p>
+<h5 id="minimal-complete-response-32"><a href="#TOC">Minimal complete response</a></h5>
+<h5 id="parameters-36"><a href="#TOC">Parameters</a></h5>
+<h5 id="parameters-37"><a href="#TOC">Parameters</a></h5>
+<table>
+<col width="20%" />
+<col width="30%" />
+<col width="12%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Parameter</th>
+<th align="left">Type</th>
+<th align="left">Optional</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>query</code></td>
+<td align="left"><code>text</code></td>
+<td align="left">No</td>
+<td align="left">A query to search all release groups for. For query syntax, see the documentation on <a href="http://musicbrainz.org/doc/Indexed_Search_Syntax">indexed search syntax</a>.</td>
+</tr>
+<tr class="even">
+<td align="left"><code>?page</code></td>
+<td align="left"><code>nonnegative-integer</code></td>
+<td align="left">Yes</td>
+<td align="left">The page offset for results. Defaults to 0 if omitted.</td>
+</tr>
+</tbody>
+</table>
+<h5 id="response-codes-32"><a href="#TOC">Response codes</a></h5>
+<table>
+<col width="6%" />
+<col width="15%" />
+<thead>
+<tr class="header">
+<th align="left">Code</th>
+<th align="left">Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">200</td>
+<td align="left">The release group search could be performed successfully.</td>
+</tr>
+<tr class="even">
+<td align="left">400</td>
+<td align="left">The search query was invalid.<br />The pagination parameters are not valid.</td>
+</tr>
+</tbody>
+</table>
+<hr />
 <h2 id="types"><a href="#TOC">Types</a></h2>
 <p>This appendix contains a list of types used by the web service. All types have a description, and where possible, their augmented Backus-Naur form syntax (as defined by <a href="https://tools.ietf.org/html/rfc5234">RFC 5234</a>).</p>
 <h3 id="core-entity"><a href="#TOC">Core Entity</a></h3>
@@ -2855,6 +3426,8 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h3 id="direction"><a href="#TOC"><code>direction</code></a></h3>
 <p>Indicates whether a relationship is forwards - pointing <em>towards</em> another entity - or backwards - pointing <em>from</em> another entity.</p>
 <pre><code>direction = &quot;forward&quot; / &quot;backward&quot;</code></pre>
+<h3 id="empty-single-line"><a href="#TOC"><code>empty-single-line</code></a></h3>
+<p>A text string that does not have leading or trailing whitespace, runs of multiple whitespace characters, or newlines. This text can be the empty string.</p>
 <h3 id="entity-type"><a href="#TOC"><code>entity-type</code></a></h3>
 <p>Used to specify which type of <a href="#core-entity">core entity</a> one is referring to.</p>
 <pre><code>entity-type = &quot;artist&quot; / &quot;label&quot; /&quot; recording&quot; / &quot;release&quot; / &quot;release-group&quot; /
@@ -2866,7 +3439,7 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h3 id="nonnegative-integer"><a href="#TOC"><code>nonnegative-integer</code></a></h3>
 <p>An integer that is either 0 or positive.</p>
 <h3 id="single-line"><a href="#TOC"><code>single-line</code></a></h3>
-<p>A text string that does not have leading or trailing whitespace, runs of multiple whitespace characters, or newlines.</p>
+<p>A text string that does not have leading or trailing whitespace, runs of multiple whitespace characters, or newlines. This <em>cannot</em> be the empty string.</p>
 <h1 id="open-questions"><a href="#TOC">Open Questions</a></h1>
 <h2 id="http-or-https"><a href="#TOC">HTTP or HTTPS?</a></h2>
 <p>Github mandate that all requests are served over HTTPS. Should we? By doing so we're consistent, and also ensuring clients can handle HTTPS for authentication.</p>
@@ -2899,6 +3472,9 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <p><a href="https://tools.ietf.org/html/rfc5988">RFC-5988</a> re-defines the Link header, providing a structured language for linking to other resources. In the responses above, I specifically embed the URI to sub-resources, and next/previous page. Perhaps this data would be more useful in the Link header?</p>
 <h2 id="puid-end-point"><a href="#TOC">PUID end point?</a></h2>
 <p>Should we have a PUID end point? If so, we should probably change <code>recording/:mbid/puid</code> to point to it.</p>
+<h2 id="releaserelease-groupmbid-or-release-groupmbidreleases"><a href="#TOC">/release?release-group=mbid or /release-group/:mbid/releases ?</a></h2>
+<p>I'm not sure about this one, and it comes up in a few other places. I personally think that the former (<code>/release/?release-group=:mbid</code>) is the better as it reduces the amount of URLs we have, which may simplify things for both the API implementer, and clients themselves.</p>
+<p>This issue also relates to whether <code>/artist/:mbid/releases</code>, <code>/artist/:mbid/recordings</code>, etc, should exist.</p>
     </div>
   </body>
 </html>
